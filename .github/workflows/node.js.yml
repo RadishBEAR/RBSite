@@ -1,7 +1,9 @@
 name: CI
 on:
+  # 触发持续集成的git操作
   push:
     branches:
+      # 触发持续集成和持续部署的分支
       - main
 
 jobs:
@@ -21,6 +23,7 @@ jobs:
      
     # 部署 
     - name: Deploy
+      # 使用已有的部署脚本来进行产物部署
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         ACCESS_TOKEN: ${{ secrets.ACTION_TOKEN }}
