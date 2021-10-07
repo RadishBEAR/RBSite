@@ -1,0 +1,29 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+
+    # 安装依赖与编译
+    - name: Install and Build
+      run: |
+        npm install
+        npm run build
+     
+    # 部署 
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        # FOLDER为需要进行部署的文件夹名，即dist
+        FOLDER: dist
