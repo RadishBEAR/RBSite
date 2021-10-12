@@ -22,7 +22,7 @@ jobs:
         npm run build
      
     # 部署 
-    - name: Deploy
+    - name: Deploy to github page
       # 使用已有的部署脚本来进行产物部署
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
@@ -30,3 +30,11 @@ jobs:
         BRANCH: gh-pages
         # FOLDER为需要进行部署的文件夹名，即dist
         FOLDER: dist
+    - name: Deploy file to server
+      uses: wlixcc/SFTP-Deploy-Action@v1.0 
+      with:  
+        username: 'rbsite'   #ssh user name
+        server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
+        ssh_private_key: ${{ secrets.SERVER_SFTP_TOKEN }} # github仓库中sftp密钥
+        local_path: './dist/*'  # 项目build的文件夹路径
+        remote_path: '/www/wwwroot/rbsite'
