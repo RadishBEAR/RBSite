@@ -31,11 +31,11 @@ jobs:
         # FOLDER为需要进行部署的文件夹名，即dist
         FOLDER: dist
     - name: Deploy to server
-        uses: easingthemes/ssh-deploy@v2.0.7
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SFTP_TOKEN }}
-          ARGS: "-avz --delete"
-          SOURCE: "./dist/"
-          REMOTE_HOST: ${{ secrets.SERVER_IP }}
-          REMOTE_USER: "rbsite"
-          TARGET: "/www/wwwroot/rbsite"
+      uses: easingthemes/ssh-deploy@v2.0.7
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SFTP_TOKEN }}
+        ARGS: "-avz --delete"
+        SOURCE: "./dist/"
+        REMOTE_HOST: ${{ secrets.SERVER_IP }}
+        REMOTE_USER: "rbsite"
+        TARGET: "/www/wwwroot/rbsite"
