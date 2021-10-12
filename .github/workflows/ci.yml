@@ -33,9 +33,9 @@ jobs:
     - name: Deploy to server
       uses: easingthemes/ssh-deploy@v2.0.7
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SFTP_TOKEN }}
+        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_TOKEN }}
         ARGS: "-avz --delete"
-        SOURCE: "./dist/"
+        SOURCE: "public"
         REMOTE_HOST: ${{ secrets.SERVER_IP }}
-        REMOTE_USER: "rbsite"
-        TARGET: "/www/wwwroot/rbsite"
+        REMOTE_USER: "root"
+        TARGET: "	/www/wwwroot/rbsite"
