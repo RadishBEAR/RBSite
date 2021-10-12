@@ -30,11 +30,12 @@ jobs:
         BRANCH: gh-pages
         # FOLDER为需要进行部署的文件夹名，即dist
         FOLDER: dist
-    - name: Deploy file to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.0 
-      with:  
-        username: 'rbsite'   #ssh user name
-        server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
-        ssh_private_key: ${{ secrets.SERVER_SFTP_TOKEN }} # github仓库中sftp密钥
-        local_path: './dist/*'  # 项目build的文件夹路径
-        remote_path: '/www/wwwroot/rbsite'
+    - name: Deploy to server
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SFTP_TOKEN }}
+          ARGS: "-avz --delete"
+          SOURCE: "./dist/"
+          REMOTE_HOST: ${{ secrets.SERVER_IP }}
+          REMOTE_USER: "rbsite"
+          TARGET: "/www/wwwroot/rbsite"
